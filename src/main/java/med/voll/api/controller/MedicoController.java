@@ -38,7 +38,7 @@ public class MedicoController {
         /* Para Ordenar os registros acrescentar "URL?sort=nomeDoAtributo,asc/desc"
         * exemplo: http://localhost:8080/medicos?sort=nome,asc*/
 
-        return repository.findAll(paginacao).map(DadosListagemMedico::new);
+        return repository.findAllByAtivoTrue(paginacao).map(DadosListagemMedico::new);
     }
 
     @PutMapping
@@ -46,6 +46,13 @@ public class MedicoController {
     public void atualizar(@RequestBody @Valid DadosAtualizacaoMedico dados) {
        Medico medico = repository.getReferenceById(dados.id());
        medico.atualizarInformacoes(dados);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void excluir(@PathVariable Long id){
+        Medico medico = repository.getReferenceById(id);
+        medico.excluir();
     }
 
 
