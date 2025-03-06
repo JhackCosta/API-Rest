@@ -1,4 +1,4 @@
-create table consultas
+create table consulta
 (
 
     id          bigint   not null auto_increment,
