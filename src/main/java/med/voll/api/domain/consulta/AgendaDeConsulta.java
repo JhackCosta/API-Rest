@@ -39,6 +39,9 @@ public class AgendaDeConsulta {
 
         var medico = escolherMedico(dados);
         var paciente = pacienteRepository.findById(dados.idPaciente()).get();
+        if (medico == null) {
+            throw new ValidacaoException("Não existe médico com está especialidade disponível nessa data!");
+        }
 
         var consulta = new Consulta(null, medico, paciente, dados.data(), null);
 
